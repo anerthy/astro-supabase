@@ -1,0 +1,66 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+---
+
+<Layout title="Sign In">
+  <section class="m-auto border-2 p-8 rounded-2xl max-w-md mt-10">
+    <header class="mb-4">
+      <h1 class="text-4xl font-bold">Sign In</h1>
+      <p>Sign in to your account</p>
+    </header>
+
+    <form>
+      <label for="email" class="block mb-2">
+        Email
+        <input 
+        name="email"
+        type="text" 
+        placeholder="john@example.com" 
+        class="border p-2 w-full mb-4 rounded-lg"/>
+      </label>
+      <label for="password" class="block mb-2">
+        Password
+        <input 
+        name="password"
+        type="password" 
+        placeholder="••••••••" 
+        class="border p-2 w-full mb-4 rounded-lg"/>
+      </label>
+      <button 
+        type="submit" 
+        class="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Sign In
+      </button>
+    </form>
+    <footer class="mt-4">
+      <p>
+        Don't have an account?
+        <a href="/register" class="text-blue-500">Sign Up</a>
+      </p>
+    </footer>
+  </section>
+</Layout>
+
+<script>
+import { actions } from "astro:actions";
+
+
+  const form = document.querySelector('form') as HTMLFormElement;
+  
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    const { error } = await actions.signIn(formData);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+  });
+
+
+</script>
