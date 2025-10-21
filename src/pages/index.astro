@@ -29,21 +29,4 @@ const { data, error } = await supabase
       <p class="p-4">No teams found.</p>
     )
   }
-  <button
-    id="logout"
-    class="bg-black text-white px-4 py-2 rounded-3xl text-2xl hover:bg-gray-800"
-    >log out
-  </button>
 </Layout>
-
-<script>
-  import { actions } from 'astro:actions';
-
-  const logoutButton = document.querySelector('#logout') as HTMLButtonElement;
-
-  logoutButton.addEventListener('click', async () => {
-    console.log('logout');
-    const { error } = await actions.signOut();
-    if (!error) window.location.replace('/sign-in');
-  });
-</script>
