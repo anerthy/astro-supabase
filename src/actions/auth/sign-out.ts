@@ -2,10 +2,9 @@ import { defineAction } from 'astro:actions';
 
 export const signOut = defineAction({
   accept: 'json',
-  handler: async ({ }, { cookies, rewrite }) => {
+  handler: async (input, { cookies, rewrite, request }) => {
     cookies.delete('sb-access-token', { path: '/' });
     cookies.delete('sb-refresh-token', { path: '/' });
-    rewrite('/sign-in');
     return { success: true };
   },
 });
