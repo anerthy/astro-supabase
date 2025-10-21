@@ -1,20 +1,49 @@
 ---
-import Hero from "@/components/Hero.astro";
-import { supabase } from "@/lib/supabase";
-import Layout from "@/layouts/Layout.astro";
+import Hero from '@/components/Hero.astro';
+import { supabase } from '@/lib/supabase';
+import Layout from '@/layouts/Layout.astro';
 
-const { data, error } = await supabase.from("teams").select("*");
+const { isLoggedIn, user } = Astro.locals;
 
+if (!isLoggedIn) {
+  return Astro.redirect('/sign-in');
+}
+
+const { data, error } = await supabase
+  .from('teams')
+  .select('*')
+  .eq('owner_id', user.id);
 ---
 
 <Layout title="Task Manager">
-	<Hero />
+  <Hero />
   {
-    data?.map((team) => (
-      <div class="p-4 border-b">
-        <h3 class="text-xl font-bold">{team.name}</h3>
-        <p class="text-gray-600">{team.description}</p>
-      </div>
-    ))
+    data ? (
+      data?.map((team) => (
+        <div class="p-4 border-b">
+          <h3 class="text-xl font-bold">{team.name}</h3>
+          <p class="text-gray-600">{team.description}</p>
+        </div>
+      ))
+    ) : (
+      <p class="p-4">No teams found.</p>
+    )
   }
+  <button
+    id="logout"
+    class="bg-black text-white px-4 py-2 rounded-3xl text-2xl hover:bg-gray-800"
+    >log out
+  </button>
 </Layout>
+
+<script>
+  import { actions } from 'astro:actions';
+
+  const logoutButton = document.querySelector('#logout') as HTMLButtonElement;
+
+  logoutButton.addEventListener('click', async () => {
+    console.log('logout');
+    const { error } = await actions.signOut();
+    if (!error) window.location.replace('/sign-in');
+  });
+</script>
