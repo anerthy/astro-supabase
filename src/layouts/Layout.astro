@@ -1,13 +1,14 @@
 ---
-import Footer from "@/components/shared/Footer.astro";
-import "@/styles/global.css";
+import Footer from '@/components/shared/Footer.astro';
+import Navbar from '@/components/shared/Navbar.astro';
+import '@/styles/global.css';
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title = "Task Manager", description } = Astro.props;
+const { title = 'Task Manager', description } = Astro.props;
 ---
 
 <!doctype html>
@@ -22,6 +23,7 @@ const { title = "Task Manager", description } = Astro.props;
   </head>
   <body>
     <div class="flex flex-col">
+      <Navbar />
       <main class="min-h-screen flex flex-col flex-grow">
         <slot />
       </main>
