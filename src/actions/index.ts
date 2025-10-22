@@ -5,6 +5,7 @@ import {
   signIn,
   signOut,
 } from './auth';
+import { createTeam, getTeamById, getUserTeams } from './teams';
 
 export const server = {
   registerUser,
@@ -12,4 +13,7 @@ export const server = {
   signOut,
   resetPassword,
   changePassword,
+  createTeam,
+  getTeamById,
+  getUserTeams,
 };
