@@ -1,4 +1,5 @@
 ---
+import Hero from '@/components/shared/Hero.astro';
 import Layout from '@/layouts/Layout.astro';
 import { actions } from 'astro:actions';
 
@@ -20,8 +21,5 @@ const { name, description } = team;
 ---
 
 <Layout title={name}>
-  <div class="max-w-2xl mx-5 mt-10">
-    <h1 class="text-3xl font-bold mb-6">{name}</h1>
-    <p class="text-gray-600">{description}</p>
-  </div>
+  <Hero title={name} subtitle={description} />
 </Layout>
